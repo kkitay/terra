@@ -1,17 +1,26 @@
 {
-  "name": "mother",
+  "name": "terra",
+  "description": "Your digital hygienist.",
   "version": "0.1.0",
   "private": true,
+  "main": "src/electron-main.js",
+  "homepage": "./",
   "dependencies": {
+    "electron-settings": "^3.2.0",
+    "lodash": "^4.17.11",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-scripts": "2.0.5"
+    "react-router": "^4.3.1",
+    "react-scripts": "2.0.5",
+    "react-typist": "^2.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron": "electromon .",
+    "dev": "nf start"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -21,5 +30,10 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "electron": "^3.0.6",
+    "electromon": "^1.0.10",
+    "foreman": "^3.0.1"
+  }
 }

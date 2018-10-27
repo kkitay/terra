@@ -1,0 +1,62 @@
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  cursor: default;
+}
+
+.MenuBar {
+  background: white;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 1.5rem;
+}
+
+.MenuBar::before {
+  content: " ";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent white transparent;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -10px;
+}
+
+.Settings input {
+  margin-left: -1.25rem;
+  float: left;
+}
+
+.Settings label {
+  display: block;
+  cursor: pointer;
+  margin-left: 1rem;
+  padding: 1rem 0rem;
+  clear: both;
+}
+
+.Settings label span {
+  float: left;
+  margin-left: 0.5rem;
+  line-height: 1.25rem;
+}
+
+.feedback {
+  clear: both;
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.feedback button {
+  margin: 0 auto;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #666;
+  font-size: 12px;
+  background: none;
+  border: 0;
+}
