@@ -1,33 +1,4 @@
-.EyeBreak {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(255,255, 255,.75);
-    transition: background 1s ease-in;
-}
-
-.message {
-    position: absolute;
-    left: 0;
-    bottom: calc(5% + 300px);
-    width: 50%;
-    background: #fff;
-    text-align: center;
-    border-radius: 0 25px 25px 0;
-    padding: 25px;
-    box-shadow: 0px 0px 30px rgba(0,0,0,.2);
-}
-
 h1 {
-    font-size: 22px;
-}
-
-h2, h3 {
-    font-size: 18px;
-}
-
-@keyframes throb {
-    100% {
-        background: rgba(255,255,255,.8);
-    }
+    font-size: 16px;
+    padding-top: 0;
 }

@@ -1,38 +1,27 @@
 const electron = require('electron');
-const { BrowserWindow } = electron;
+const { createTrayWindow, showTray } = require('../electron/tray');
 
-require('electron-reload')(null, {
-  electron: require(`${__dirname}/../../node_modules/electron`)
-});
-
-let interval = null;
+let tray = null;
 let window = null;
+let interval = null;
 
-const eyeBreak = (url) => {
-  let display = electron.screen.getPrimaryDisplay();
-  let maxSize = display.workAreaSize;
-  window = new BrowserWindow({
-    height: maxSize.height + 300,
-    width: maxSize.width,
-    show: false,
-    frame: false,
-    hasShadow: false,
-    resizable: false,
-    alwaysOnTop: true,
-    transparent: true,
-    simpleFullscreen: true
-  });
-  window.loadURL(url + '#/eyebreak');
-  window.setIgnoreMouseEvents(true);
+const takeBreak = () => {
+  console.log('takebreak()');
+  showTray(tray, window);
+  window.webContents.send('openedTray');
 };
 
-const start = () => {
-  interval = setInterval(() => {
-    window.show();
-    setTimeout(() => {
-      window.hide();
-    }, (1000 * 30));
-  }, (1000 * 60));
+const start = (baseUrl, trayRef) => {
+  console.log('start eye breaks');
+  // we need this to position the tray
+  tray = trayRef;
+
+  // initialize hidden tray window
+  window = createTrayWindow(baseUrl + '#/eyebreak');
+
+  // on an interval, make 'er show up
+  takeBreak();
+  // interval = setInterval(takeBreak(), 1000 * 60);
 };
 
 const stop = () => {
@@ -42,4 +31,4 @@ const stop = () => {
 module.exports = {
   start,
   stop
-}
+};

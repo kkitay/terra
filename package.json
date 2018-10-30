@@ -7,7 +7,6 @@
   "homepage": "./",
   "dependencies": {
     "electromon": "^1.0.10",
-    "electron-reload": "^1.2.5",
     "electron-settings": "^3.2.0",
     "lodash": "^4.17.11",
     "react": "^16.6.0",
@@ -22,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "electron .",
+    "electron": "electromon .",
     "dev": "nf start"
   },
   "eslintConfig": {

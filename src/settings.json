@@ -1,10 +1,10 @@
 {
-    "eyes": {
-        "name": "eyes",
-        "description": "Get you to your meetings"
-    },
     "meetings": {
         "name": "meetings",
+        "description": "Get you to your meetings"
+    },
+    "eyes": {
+        "name": "eyes",
         "description": "Remind you to rest your eyes"
     }
 }

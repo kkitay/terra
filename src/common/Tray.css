@@ -5,6 +5,10 @@ html, body, #root {
   cursor: default;
 }
 
+input, button {
+  font: inherit;
+}
+
 .Tray {
   background: white;
   border-radius: 10px;

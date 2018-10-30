@@ -1,5 +1,10 @@
 import React from 'react';
+import Tray from '../common/Tray';
 import './EyeBreak.css';
+
+const { remote } = window.require('electron');
+
+const thisWindow = remote.getCurrentWindow();
 
 export default class EyeBreak extends React.Component {
   constructor(props) {
@@ -19,17 +24,22 @@ export default class EyeBreak extends React.Component {
 
   render() {
     return (
-      <div className="EyeBreak">
-        <div className="message">
-          <h1>It's time for an quick break!</h1>
-          <h2>
-            Shake out your hands and try to focus on something in the distance
-            for 20 seconds. Your body will thank you.
-          </h2>
-          <h3>{this.state.countdown}</h3>
-          Hit ESC to close.
-        </div>
-      </div>
+      <Tray
+        render={(tray, TypeOut) =>
+          TypeOut(
+            'eyebreak',
+            <div className="EyeBreak">
+              <h1>It's break time!</h1>
+              <p>
+                Shake out your hands and look at something in the
+                distance for 20 seconds. Your body will thank you.
+              </p>
+              <p>{this.state.countdown}</p>
+              <p>Hit ESC to <button onClick={() => thisWindow.close()}>skip this break</button>.</p>
+            </div>
+          )
+        }
+      />
     );
   }
 }
