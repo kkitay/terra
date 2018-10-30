@@ -25,7 +25,7 @@ const createTrayWindow = (URL) => {
     frame: false,
     hasShadow: true,
     resizable: false,
-    alwaysOnTop: true,
+    alwaysOnTop: false,
     transparent: true,
     webPreferences: {
       backgroundThrottling: false
@@ -33,7 +33,6 @@ const createTrayWindow = (URL) => {
   });
 
   window.loadURL(URL);
-
 
   window.on('blur', () => {
     if(!window.webContents.isDevToolsOpened()) {

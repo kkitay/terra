@@ -6,11 +6,14 @@
   "main": "src/electron-main.js",
   "homepage": "./",
   "dependencies": {
+    "electromon": "^1.0.10",
+    "electron-reload": "^1.2.5",
     "electron-settings": "^3.2.0",
     "lodash": "^4.17.11",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5",
     "react-typist": "^2.0.4"
   },
@@ -19,7 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "electromon .",
+    "electron": "electron .",
     "dev": "nf start"
   },
   "eslintConfig": {
@@ -33,7 +36,6 @@
   ],
   "devDependencies": {
     "electron": "^3.0.6",
-    "electromon": "^1.0.10",
     "foreman": "^3.0.1"
   }
 }

@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MemoryRouter, Route } from 'react-router';
+import { Route, Switch } from 'react-router';
+import { HashRouter } from 'react-router-dom';
 import './index.css';
-import Menubar from './menubar/Menubar';
+import Main from './main/Main';
+import EyeBreak from './eyebreak/EyeBreak';
 
 ReactDOM.render(
-  <MemoryRouter>
-    <Route exact path="/" component={Menubar} />
-  </MemoryRouter>
+  <HashRouter>
+   <Switch>
+      <Route exact path="/" component={Main} />
+      <Route path="/eyebreak" component={EyeBreak} />
+   </Switch>
+  </HashRouter>
   , document.getElementById('root'));
