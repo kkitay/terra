@@ -1,35 +1,40 @@
 import React from 'react';
-import settingConfig from '../settings.json';
+import Typewriter from '../common/Typewriter';
 
-const elecSettings = window
-  .require('electron')
-  .remote.require('electron-settings');
+const settings = window.require('electron').remote.require('electron-settings');
 
-const toggleSetting = name => {
-  let curSettings = elecSettings.get(name);
-  let newOn = curSettings['on'] === true ? false : true;
-  elecSettings.set(name, { ...curSettings, on: newOn });
+const descriptions = {
+  eyes: 'Remind you to rest your eyes',
+  meetings: 'Remind you to go to meetings'
 };
 
-const Settings = ({ TypeOut }) => {
-  return TypeOut(
-    'settings',
-    <div className="Settings">
-      {Object.values(settingConfig).map(({ name, description }) => {
-        let opts = elecSettings.get(name);
+const toggleSetting = name => {
+  let curSettings = settings.get(name);
+  let newOn = curSettings['on'] === true ? false : true;
+  settings.set(name, { ...curSettings, on: newOn });
+};
+
+const Settings = ({ doneTyping }) => {
+  let allSettings = settings.getAll();
+
+  return (
+    <Typewriter name="Settings" doneTyping={doneTyping}>
+      {Object.entries(allSettings).map(([name, { on }]) => {
         return (
           <div className="setting" key={name}>
             <input
               type="checkbox"
               id={name}
-              defaultChecked={opts.on}
+              defaultChecked={on}
               onChange={() => toggleSetting(name)}
             />
-            <label htmlFor={name}>{description}</label>
+            <label htmlFor={name}>
+              {descriptions[name] ? descriptions[name] : name}
+            </label>
           </div>
         );
       })}
-    </div>
+    </Typewriter>
   );
 };
 

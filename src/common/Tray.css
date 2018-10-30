@@ -42,8 +42,8 @@ input, button {
 
 .Settings label {
   cursor: pointer;
-
   padding-left: 0.5rem;
+  margin-top: -0.15rem;
 }
 
 .feedback {
@@ -60,5 +60,10 @@ input, button {
   color: #666;
   font-size: 12px;
   background: none;
+  box-shadow: none;
   border: 0;
+}
+
+p:last-child {
+  padding-bottom: 0;
 }

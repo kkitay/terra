@@ -1,4 +1,13 @@
 h1 {
     font-size: 16px;
     padding-top: 0;
+    margin-top: 0;
+}
+
+button {
+    background: #fafafa;
+    border: 1px solid #666;
+    color: #666;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px 0px #CCC;
 }

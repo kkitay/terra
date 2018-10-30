@@ -2,13 +2,11 @@
 const path = require('path');
 const url = require('url');
 const { ipcMain, app, nativeImage } = require('electron');
-const _ = require('lodash/core');
-const settings = require('electron-settings');
-const settingConfig = require('./settings.json');
 
 // my modules
-const { createTray, createTrayWindow } = require('./electron/tray');
-const eyeBreaks = require('./electron/eyeBreaks');
+const { createTray, createTrayWindow } = require('./features/tray');
+const { createSettings } = require('./features/createSettings');
+const eyeBreaks = require('./features/eyeBreaks');
 
 // make an icon
 const assetsDir = path.join(__dirname, '../public/');
@@ -20,7 +18,7 @@ icon.setTemplateImage(true);
 const baseUrl =
   process.env.ELECTRON_START_URL ||
   url.format({
-    pathname: path.join(__dirname, '/../build/index.html'),
+    pathname: path.join(__dirname, '../build/index.html'),
     protocol: 'file:',
     slashes: true
   });
@@ -40,7 +38,7 @@ const featureFunctions = {
 };
 
 // if a user turns on the setting in the renderer, flip it on here
-ipcMain.on('turn-feature-on', (event, feature, onOffBool) => {
+ipcMain.on('toggle-feature', (event, feature, onOffBool) => {
   if (featureFunctions[feature]) {
     // true = turn it on
     if (onOffBool) {
@@ -59,17 +57,14 @@ app.on('ready', () => {
   trayWindow = createTrayWindow(baseUrl);
   tray = createTray(trayWindow, icon);
 
-  // instantiate settings
-  for ({ name } of Object.values(settingConfig)) {
-    if (settings.has(name)) {
-      // turn it on if it's enabled
-      let vals = settings.get(name);
-      if (vals.on === true && featureFunctions[name]) {
-        featureFunctions[name].start();
-      }
-    } else {
-      // add it if there is no setting
-      settings.set(`${name}.on`, false);
+  // start up settings
+  // this returns all the settings
+  const settings = createSettings();
+
+  // turn on settings that are enabled
+  for ([name, values] of Object.entries(settings)) {
+    if (values.on && featureFunctions[name]) {
+      featureFunctions[name].start();
     }
   }
 });

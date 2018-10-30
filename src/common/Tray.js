@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Typist from 'react-typist';
 import './Tray.css';
 
 const electron = window.require('electron');
@@ -10,38 +9,38 @@ class Tray extends Component {
     super(props);
     this.state = {
       startTyping: false,
-      doneTyping: {}
+      restartTyping: 0
     };
+    this.window = electron.remote.getCurrentWindow();
+    this.trayRef = React.createRef();
   }
 
   componentDidMount = () => {
-    ipc.on('openedTray', () => {
-      this.setState({ startTyping: true });
+    ipc.on('openTray', () => {
+      console.log('restart', Date.now());
+      this.setState({
+        startTyping: true,
+        restartTyping: Date.now()
+      });
     });
+  };
+
+  updateTrayHeight = async () => {
+    let height = this.trayRef.current.offsetHeight + 100;
+    this.window.setSize(300, height, true);
   };
 
   finishTyping = name => {
     let doneTyping = { [name]: true, ...this.state.doneTyping };
     this.setState({ doneTyping });
-  };
-
-  TypeOut = (name, render) => {
-    return (
-      <Typist
-        className={name}
-        avgTypingDelay={30}
-        stdTypingDelay={0}
-        cursor={{ show: false }}
-        onTypingDone={() => this.finishTyping(name)}
-      >
-        {render}
-      </Typist>
-    );
+    this.updateTrayHeight();
   };
 
   render() {
     return (
-      <div className="Tray">{this.props.render(this.state, this.TypeOut)}</div>
+      <div className="Tray" ref={this.trayRef}>
+        {this.props.render(this.state)}
+      </div>
     );
   }
 }

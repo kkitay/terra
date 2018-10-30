@@ -1,5 +1,6 @@
 import React from 'react';
 import Tray from '../common/Tray';
+import Typewriter from '../common/Typewriter';
 import './EyeBreak.css';
 
 const { remote } = window.require('electron');
@@ -25,20 +26,26 @@ export default class EyeBreak extends React.Component {
   render() {
     return (
       <Tray
-        render={(tray, TypeOut) =>
-          TypeOut(
-            'eyebreak',
-            <div className="EyeBreak">
-              <h1>It's break time!</h1>
-              <p>
-                Shake out your hands and look at something in the
-                distance for 20 seconds. Your body will thank you.
-              </p>
-              <p>{this.state.countdown}</p>
-              <p>Hit ESC to <button onClick={() => thisWindow.close()}>skip this break</button>.</p>
-            </div>
-          )
-        }
+        render={tray => {
+          return (
+            tray.startTyping && (
+              <Typewriter name="eyebreak" className="EyeBreak">
+                <h1>It's break time!</h1>
+                <p>
+                  Shake out your hands and look at something in the distance for
+                  20 seconds. Your body will thank you.
+                </p>
+                <p>{this.state.countdown}</p>
+                <p>
+                  Hit ESC to
+                  <button onClick={() => thisWindow.hide()}>
+                    skip this break
+                  </button>
+                </p>
+              </Typewriter>
+            )
+          );
+        }}
       />
     );
   }

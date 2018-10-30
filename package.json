@@ -3,7 +3,7 @@
   "description": "Your digital hygienist.",
   "version": "0.1.0",
   "private": true,
-  "main": "src/electron-main.js",
+  "main": "electron/main.js",
   "homepage": "./",
   "dependencies": {
     "electromon": "^1.0.10",

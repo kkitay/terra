@@ -1,14 +1,18 @@
 const { BrowserWindow, Tray } = require('electron');
-const { toggleWindow } = require('./common');
+const { toggleWindow } = require('./toggleWindow');
 
+// Creates the tray icon itself
 const createTray = (trayWindow, icon) => {
   let tray = new Tray(icon);
 
   // toggle the tray window when clicking the tray icon.
   tray.on('click', function(event) {
-    trayWindow.webContents.send('openedTray');
+    trayWindow.webContents.send('openTray');
 
-    toggleWindow(trayWindow, () => showTray(tray, trayWindow));
+    toggleWindow(trayWindow, () => {
+      showTray(tray, trayWindow);
+      trayWindow.focus();
+    });
 
     if (trayWindow.isVisible() && process.defaultApp && event.metaKey) {
       trayWindow.openDevTools({ mode: 'detach' });
@@ -25,15 +29,17 @@ const createTray = (trayWindow, icon) => {
   return tray;
 };
 
+// Creates a tray window
+// I use this multiple times to create windows adjacent to the tray icon
 const createTrayWindow = (Url, optionsOverride = {}) => {
   let window = new BrowserWindow({
     width: 300,
-    height: 400,
+    height: 300,
     useContentSize: true,
     show: false,
+    resizable: false,
     frame: false,
     hasShadow: true,
-    resizable: false,
     alwaysOnTop: true,
     transparent: true,
     webPreferences: {
@@ -63,8 +69,7 @@ const showTray = (tray, trayWindow) => {
   }
 
   trayWindow.setPosition(x, y, false);
-  trayWindow.show();
-  trayWindow.focus();
+  trayWindow.showInactive();
 };
 
 module.exports = {
