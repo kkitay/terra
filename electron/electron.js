@@ -8,11 +8,13 @@ const { createTray, createTrayWindow } = require('./features/tray');
 const { createSettings } = require('./features/createSettings');
 const eyeBreaks = require('./features/eyeBreaks');
 
+// environ variables
+const assetsDir = process.env.ELECTRON_RUN_AS_NODE // this is set in production
+  ? './' // in production our public assets are in the same folder
+  : path.join(__dirname, '../public/');
+
 // make an icon
-const assetsDir = path.join(__dirname, '../public/');
-let icon = nativeImage.createFromPath(
-  path.join(assetsDir, 'raccoon@4x.png')
-);
+let icon = nativeImage.createFromPath(path.join(assetsDir, 'raccoon@4x.png'));
 icon.setTemplateImage(true);
 
 const baseUrl =

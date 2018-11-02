@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "author": "kkitay",
-  "main": "electron/main.js",
+  "main": "electron/electron.js",
   "homepage": "./",
   "build": {
     "appId": "com.kkitay.raccoon",
@@ -37,8 +37,8 @@
     "electron": "electromon .",
     "dev": "nf start",
     "postinstall": "electron-builder install-app-deps",
-    "electron-pre": "mkdir -p build && copyfiles electron build",
-    "electron-pack": "npm run electron-pre && electron-builder -mwl"
+    "preelectron-pack": "npm run build && copyfiles -u 1 electron/** electron/**/** build",
+    "electron-pack": "electron-builder"
   },
   "eslintConfig": {
     "extends": "react-app"
