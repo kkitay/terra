@@ -39,7 +39,7 @@ const createTrayWindow = (Url, optionsOverride = {}) => {
     show: false,
     resizable: false,
     frame: false,
-    hasShadow: true,
+    hasShadow: false,
     alwaysOnTop: true,
     transparent: true,
     webPreferences: {

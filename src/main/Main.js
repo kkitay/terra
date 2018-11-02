@@ -2,9 +2,9 @@ import React from 'react';
 import Settings from './Settings';
 import Tray from '../common/Tray';
 import Typewriter from '../common/Typewriter';
+import './Main.css';
 
-const electron = window.require('electron');
-const shell = electron.shell;
+const { shell } = window.require('electron');
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -15,7 +15,6 @@ export default class Main extends React.Component {
   }
 
   doneTyping = name => {
-    console.log('done typing', name);
     this.setState({ doneTyping: [...this.state.doneTyping, name] });
   };
 
@@ -26,7 +25,14 @@ export default class Main extends React.Component {
           <div className="Main">
             {tray.startTyping && (
               <Typewriter name="Intro" doneTyping={this.doneTyping}>
-                <div>I'm your digital hygienist, Terra! I can help:</div>
+                <div>
+                  <img
+                    className="raccoon"
+                    src="/icon.png"
+                    alt="Cute Raccoon"
+                  />
+                  I'm the Digital Wellbeing Raccoon. Here's what I do:
+                </div>
               </Typewriter>
             )}
             {this.state.doneTyping.includes('Intro') && (
@@ -35,7 +41,7 @@ export default class Main extends React.Component {
             {this.state.doneTyping.includes('Settings') && (
               <Typewriter name="feedback" doneTyping={this.doneTyping}>
                 <button onClick={() => shell.openExternal('https://terra.fyi')}>
-                  terra.fyi
+                  raccoon.technology
                 </button>
               </Typewriter>
             )}

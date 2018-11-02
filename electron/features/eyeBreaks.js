@@ -1,29 +1,64 @@
-const electron = require('electron');
+const { ipcMain, globalShortcut } = require('electron');
 const { createTrayWindow, showTray } = require('../features/tray');
+const { createWhiteWindow } = require('../features/whiteWindow.js');
+
+const BREAK_INTERVAL = 1000 * 60; // 20 minutes
+const BREAK_TIME = 1000 * 30; // 30 seconds
 
 let tray = null;
-let window = null;
+let trayWindow = null;
+let whiteWindow = null;
 let interval = null;
 
+const showWhiteWindow = () => {
+  whiteWindow.showInactive();
+  whiteWindow.webContents.send('fadeio', BREAK_TIME);
+};
+
+const showTrayWindow = () => {
+  showTray(tray, trayWindow);
+  trayWindow.webContents.send('openTray', BREAK_TIME);
+};
+
+const skipBreak = () => {
+  whiteWindow.webContents.send('skipbreak');
+  trayWindow.webContents.send('skipbreak');
+};
+
 const takeBreak = () => {
-  showTray(tray, window);
-  window.webContents.send('openTray');
+  showWhiteWindow();
+  showTrayWindow();
+
+  // register shortcut then set a timeout to unregister it
+  globalShortcut.register('Esc', () => {
+    skipBreak();
+  });
+  setTimeout(() => {
+    globalShortcut.unregisterAll();
+  }, BREAK_TIME);
+
+  // listen for skipping break
+  ipcMain.on('skipbreak', () => {
+    skipBreak();
+  });
 };
 
 const start = (baseUrl, trayRef) => {
-  console.log('start eye breaks');
   // we need this to position the tray
   tray = trayRef;
-  
-  // initialize hidden tray window
-  window = createTrayWindow(baseUrl + '#/eyebreak');
+
+  // initialize hidden trayWindow
+  trayWindow = createTrayWindow(baseUrl + '#/eyebreak');
+
+  // initialize hidden whiteWindow
+  whiteWindow = createWhiteWindow(baseUrl);
 
   // on an interval, make 'er show up
-  interval = setInterval(() => takeBreak(), 1000 * 60);
+  interval = setInterval(() => takeBreak(), BREAK_INTERVAL);
 };
 
 const stop = () => {
-  interval = null;
+  clearInterval(interval);
 };
 
 module.exports = {

@@ -1,14 +1,14 @@
 import React from 'react';
 import Typist from 'react-typist';
 
-const Typewriter = ({ name, doneTyping = null, children }) => {
+const Typewriter = ({ name, doneTyping = () => {}, children }) => {
   return (
     <Typist
       className={name}
-      avgTypingDelay={15}
+      avgTypingDelay={10}
       stdTypingDelay={0}
       cursor={{ show: false }}
-      onTypingDone={doneTyping ? () => doneTyping(name) : null}
+      onTypingDone={() => doneTyping(name)}
     >
       {children}
     </Typist>

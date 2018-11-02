@@ -11,7 +11,7 @@ const eyeBreaks = require('./features/eyeBreaks');
 // make an icon
 const assetsDir = path.join(__dirname, '../public/');
 let icon = nativeImage.createFromPath(
-  path.join(assetsDir, 'motherIconBlack@2x.png')
+  path.join(assetsDir, 'raccoon@4x.png')
 );
 icon.setTemplateImage(true);
 
@@ -23,7 +23,7 @@ const baseUrl =
     slashes: true
   });
 
-// app.dock.hide();
+app.dock.hide();
 
 // hold onto our main tray
 let tray = null;
@@ -62,9 +62,9 @@ app.on('ready', () => {
   const settings = createSettings();
 
   // turn on settings that are enabled
-  for ([name, values] of Object.entries(settings)) {
-    if (values.on && featureFunctions[name]) {
-      featureFunctions[name].start();
+  for ([settingName, settingValues] of Object.entries(settings)) {
+    if (settingValues.on && featureFunctions[settingName]) {
+      featureFunctions[settingName].start();
     }
   }
 });

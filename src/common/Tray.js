@@ -17,7 +17,6 @@ class Tray extends Component {
 
   componentDidMount = () => {
     ipc.on('openTray', () => {
-      console.log('restart', Date.now());
       this.setState({
         startTyping: true,
         restartTyping: Date.now()
@@ -25,15 +24,9 @@ class Tray extends Component {
     });
   };
 
-  updateTrayHeight = async () => {
-    let height = this.trayRef.current.offsetHeight + 100;
-    this.window.setSize(300, height, true);
-  };
-
   finishTyping = name => {
     let doneTyping = { [name]: true, ...this.state.doneTyping };
     this.setState({ doneTyping });
-    this.updateTrayHeight();
   };
 
   render() {

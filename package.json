@@ -1,11 +1,24 @@
 {
-  "name": "terra",
-  "description": "Your digital hygienist.",
-  "version": "0.1.0",
+  "name": "raccoon",
+  "description": "The Digital Wellbeing Raccoon Assistant",
+  "version": "1.0.0",
   "private": true,
+  "author": "kkitay",
   "main": "electron/main.js",
   "homepage": "./",
+  "build": {
+    "appId": "com.kkitay.raccoon",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "dependencies": {
+    "classnames": "^2.2.6",
+    "copyfiles": "^2.1.0",
     "electromon": "^1.0.10",
     "electron-settings": "^3.2.0",
     "lodash": "^4.17.11",
@@ -22,7 +35,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electromon .",
-    "dev": "nf start"
+    "dev": "nf start",
+    "postinstall": "electron-builder install-app-deps",
+    "electron-pre": "mkdir -p build && copyfiles electron build",
+    "electron-pack": "npm run electron-pre && electron-builder -mwl"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,6 +51,7 @@
   ],
   "devDependencies": {
     "electron": "^3.0.6",
+    "electron-builder": "^20.31.2",
     "foreman": "^3.0.1"
   }
 }
