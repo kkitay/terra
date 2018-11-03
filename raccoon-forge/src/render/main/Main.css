@@ -1,0 +1,13 @@
+.raccoon {
+    float: right;
+    width: 25%;
+    transition: transform .8s ease-in-out;
+}
+
+.raccoon:hover {
+    transform: rotate(360deg);
+}
+
+.Main {
+    min-height: 75px;
+}

@@ -1,0 +1,14 @@
+{
+  "extends": "eslint-config-airbnb",
+  "rules": {
+    "import/extensions": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": [2, { "ignore": ["electron"] }],
+    "linebreak-style": 0,
+    "react/prefer-stateless-function": 0,
+    "arrow-parens": 0,
+    "indent": ["warn", 2],
+    "no-mixed-requires": 0,
+    "no-console": 0,
+  }
+}

@@ -1,0 +1,26 @@
+html, body, #root {
+    background: none;
+    overflow: hidden;
+    height: 100%;
+}
+
+.WhiteOut {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+
+@keyframes fadeio {
+    0% {
+        background: rgba(255,255,255,0);
+    }
+    25% {
+        background: rgba(255,255,255,.9);
+    }
+    75% {
+        background: rgba(255, 255, 255, .9);
+    }
+    100% {
+        background: rgba(255,255,255,0);
+    }
+}
