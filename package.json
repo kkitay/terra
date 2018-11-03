@@ -1,5 +1,6 @@
 {
   "name": "raccoon",
+  "productName": "Digital Wellbeing Racoon",
   "description": "The Digital Wellbeing Raccoon Assistant",
   "version": "1.0.0",
   "private": true,
@@ -38,7 +39,8 @@
     "dev": "nf start",
     "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "npm run build && copyfiles -u 1 electron/** electron/**/** build",
-    "electron-pack": "electron-builder"
+    "electron-pack": "electron-builder",
+    "electron-builder-start": "npm run preelectron-pack && electron-builder start"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -52,6 +54,7 @@
   "devDependencies": {
     "electron": "^3.0.6",
     "electron-builder": "^20.31.2",
+    "electron-packager": "^12.2.0",
     "foreman": "^3.0.1"
   }
 }
