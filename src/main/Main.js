@@ -4,7 +4,13 @@ import Tray from '../common/Tray';
 import Typewriter from '../common/Typewriter';
 import './Main.css';
 
-const { shell } = window.require('electron');
+// check if this is a dev environment
+const isEnvSet = 'ELECTRON_IS_DEV' in process.env;
+const getFromEnv = parseInt(process.env.ELECTRON_IS_DEV, 10) === 1;
+const isDev = isEnvSet ? getFromEnv : false;
+
+const raccoonPath = isDev ? '/assets/raccoon.png' : './assets/raccoon.png';
+const { shell, remote } = window.require('electron');
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -28,7 +34,7 @@ export default class Main extends React.Component {
                 <div>
                   <img
                     className="raccoon"
-                    src="/icon.png"
+                    src={raccoonPath}
                     alt="Cute Raccoon"
                   />
                   I'm the Digital Wellbeing Raccoon. Here's what I do:
@@ -40,9 +46,14 @@ export default class Main extends React.Component {
             )}
             {this.state.doneTyping.includes('Settings') && (
               <Typewriter name="feedback" doneTyping={this.doneTyping}>
-                <button onClick={() => shell.openExternal('https://terra.fyi')}>
+                <button
+                  onClick={() =>
+                    shell.openExternal('https://raccoon.technology')
+                  }
+                >
                   raccoon.technology
                 </button>
+                <button onClick={() => remote.app.quit()}>quit</button>
               </Typewriter>
             )}
           </div>

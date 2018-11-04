@@ -1,8 +1,12 @@
-const { BrowserWindow, Tray } = require('electron');
-const { toggleWindow } = require('./toggleWindow');
+const path = require('path');
+const { BrowserWindow, Tray, nativeImage } = require('electron');
+const { toggleWindow, assetsDir } = require('./common');
 
 // Creates the tray icon itself
-const createTray = (trayWindow, icon) => {
+const createTray = trayWindow => {
+  let icon = nativeImage.createFromPath(path.join(assetsDir, 'raccoon@4x.png'));
+  icon.setTemplateImage(true);
+
   let tray = new Tray(icon);
 
   // toggle the tray window when clicking the tray icon.

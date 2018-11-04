@@ -1,12 +1,12 @@
 import React from 'react';
 import Tray from '../common/Tray';
 import Typewriter from '../common/Typewriter';
-import './EyeBreak.css';
+import './Breaks.css';
 
 const { remote, ipcRenderer } = window.require('electron');
 const thisWindow = remote.getCurrentWindow();
 
-export default class EyeBreak extends React.Component {
+export default class Breaks extends React.Component {
   constructor(props) {
     super(props);
     this.interval = null;
@@ -40,12 +40,11 @@ export default class EyeBreak extends React.Component {
         render={tray => {
           return (
             tray.startTyping && (
-              <Typewriter name="eyebreak" className="EyeBreak">
+              <Typewriter name="break" className="Breaks">
                 <h1>It's break time!</h1>
                 <p>
                   Shake out your hands and try to focus on something in the
-                  distance for 20 seconds. It'll prevent RSI and eye strain. But
-                  what do I really know, I'm a raccoon.
+                  distance for 20 seconds to prevent RSI and eye strain.
                 </p>
                 <p>
                   Press ESC to&nbsp;

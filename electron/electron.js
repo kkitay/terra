@@ -1,22 +1,13 @@
 // core modules
 const path = require('path');
 const url = require('url');
-const { ipcMain, app, nativeImage } = require('electron');
+const { ipcMain, app } = require('electron');
 
 // my modules
 const { createTray, createTrayWindow } = require('./features/tray');
 const { createSettings } = require('./features/createSettings');
-const eyeBreaks = require('./features/eyeBreaks');
-
-// environ variables
-let assetsDir = process.env.ELECTRON_RUN_AS_NODE // this is set in production
-  ? './' // in production our public assets are in the same folder
-  : path.join(__dirname, '../public/');
-assetsDir = path.join(__dirname, '../public/');
-
-// make an icon
-let icon = nativeImage.createFromPath(path.join(assetsDir, 'raccoon@4x.png'));
-icon.setTemplateImage(true);
+const breaks = require('./features/breaks');
+const { assetsDir } = require('./features/common');
 
 const baseUrl =
   process.env.ELECTRON_START_URL ||
@@ -26,17 +17,15 @@ const baseUrl =
     slashes: true
   });
 
-app.dock.hide();
-
 // hold onto our main tray
 let tray = null;
 let trayWindow = null;
 
 // these are our various features we gotta start/stop
 const featureFunctions = {
-  eyes: {
-    start: () => eyeBreaks.start(baseUrl, tray),
-    stop: () => eyeBreaks.stop()
+  breaks: {
+    start: () => breaks.start(baseUrl, tray),
+    stop: () => breaks.stop()
   }
 };
 
@@ -54,11 +43,14 @@ ipcMain.on('toggle-feature', (event, feature, onOffBool) => {
   }
 });
 
+// this is not a dock app
+app.dock.hide();
+
 // start the app up
 app.on('ready', () => {
   // start up tray
   trayWindow = createTrayWindow(baseUrl);
-  tray = createTray(trayWindow, icon);
+  tray = createTray(trayWindow, assetsDir);
 
   // start up settings
   // this returns all the settings

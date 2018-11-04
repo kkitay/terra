@@ -1,8 +1,9 @@
 const { ipcMain, globalShortcut } = require('electron');
-const { createTrayWindow, showTray } = require('../features/tray');
-const { createWhiteWindow } = require('../features/whiteWindow.js');
+const settings = require('electron-settings');
+const { createTrayWindow, showTray } = require('./tray');
+const { createWhiteWindow } = require('./whiteWindow.js');
 
-const BREAK_INTERVAL = 1000 * 60; // 20 minutes
+const BREAK_INTERVAL = settings.get('breaks.intervalMins') * 1000 * 60;
 const BREAK_TIME = 1000 * 30; // 30 seconds
 
 let tray = null;
@@ -48,7 +49,7 @@ const start = (baseUrl, trayRef) => {
   tray = trayRef;
 
   // initialize hidden trayWindow
-  trayWindow = createTrayWindow(baseUrl + '#/eyebreak');
+  trayWindow = createTrayWindow(baseUrl + '#/break');
 
   // initialize hidden whiteWindow
   whiteWindow = createWhiteWindow(baseUrl);

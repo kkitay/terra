@@ -1,10 +1,14 @@
 {
   "name": "raccoon",
-  "productName": "Digital Wellbeing Racoon",
-  "description": "The Digital Wellbeing Raccoon Assistant",
+  "productName": "Raccoon",
+  "description": "Raccoon",
   "version": "1.0.0",
   "private": true,
-  "author": "kkitay",
+  "author": {
+    "name": "Kat Kitay",
+    "email": "katkitay@gmail.com",
+    "url": "https://kitay.co"
+  },
   "main": "electron/electron.js",
   "homepage": "./",
   "build": {
@@ -15,12 +19,17 @@
     ],
     "directories": {
       "buildResources": "assets"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/assets/raccoon.png"
     }
   },
   "dependencies": {
     "classnames": "^2.2.6",
     "copyfiles": "^2.1.0",
     "electromon": "^1.0.10",
+    "electron-is-dev": "^1.0.1",
     "electron-settings": "^3.2.0",
     "lodash": "^4.17.11",
     "react": "^16.6.0",
@@ -37,10 +46,9 @@
     "eject": "react-scripts eject",
     "electron": "electromon .",
     "dev": "nf start",
-    "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "npm run build && copyfiles -u 1 electron/** electron/**/** build",
     "electron-pack": "electron-builder",
-    "electron-builder-start": "npm run preelectron-pack && electron-builder start"
+    "postelectron-pack": "electron-builder install-app-deps"
   },
   "eslintConfig": {
     "extends": "react-app"

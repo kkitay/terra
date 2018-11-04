@@ -5,17 +5,17 @@ const { remote, ipcRenderer } = window.require('electron');
 const settings = remote.require('electron-settings');
 
 const descriptions = {
-  eyes: 'Help you take breaks',
+  breaks: 'Help you take breaks every 20 minutes',
   meetings: 'Send you off to your meetings'
 };
 
 const toggleSetting = name => {
   // flip the setting value between on/off (true/false)
-  let curSettings = settings.get(name);
-  let newOn = curSettings['on'] === true ? false : true;
+  let keyPath = `${name}.on`;
+  let newOn = settings.get(keyPath) === true ? false : true;
 
   // save the setting in electron-settings
-  settings.set(name, { ...curSettings, on: newOn });
+  settings.set(keyPath, newOn);
 
   // notify the main process to start/stop the feature
   ipcRenderer.send('toggle-feature', name, newOn);
