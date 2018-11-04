@@ -1,5 +1,5 @@
 import path from 'path';
-import { app, ipcMain, NativeImage } from 'electron';
+import { app, ipcMain } from 'electron';
 // import installExtension, {
 //   REACT_DEVELOPER_TOOLS
 // } from 'electron-devtools-installer';
@@ -22,16 +22,12 @@ if (isDevMode) enableLiveReload({ strategy: 'react-hmr' });
 const baseUrl = `file://${__dirname}/index.html`;
 const assetsDir = `file://${__dirname}/assets/`;
 
-// make an icon
-const icon = NativeImage.createFromPath(path.join(assetsDir, 'raccoon@4x.png'));
-icon.setTemplateImage(true);
-
 // these are our various features we gotta start/stop
 const featureFunctions = {
   breaks: {
     start: () => breaks.start(baseUrl, tray),
-    stop: () => breaks.stop(),
-  },
+    stop: () => breaks.stop()
+  }
 };
 
 // if a user turns on the setting in the renderer, flip it on here
@@ -52,18 +48,19 @@ ipcMain.on('toggle-feature', (event, feature, onOffBool) => {
 app.on('ready', () => {
   // start up tray
   trayWindow = createTrayWindow(baseUrl);
-  tray = createTray(trayWindow, icon);
+  tray = createTray(trayWindow, assetsDir);
+  console.log(tray);
 
   // start up settings
   // this returns all the settings
   const settings = createSettings();
 
   // turn on settings that are enabled
-  for ([settingName, settingValues] of Object.entries(settings)) {
-    if (settingValues.on && featureFunctions[settingName]) {
-      featureFunctions[settingName].start();
+  Object.entries(settings).forEach(([name, values]) => {
+    if (values.on && featureFunctions[name]) {
+      featureFunctions[name].start();
     }
-  }
+  });
 });
 
 // const createWindow = async () => {

@@ -1,12 +1,15 @@
-import { BrowserWindow, Tray } from 'electron';
+import path from 'path';
+import { app, BrowserWindow, Tray, nativeImage } from 'electron';
 import toggleWindow from './toggleWindow';
 
 // Creates the tray icon itself
-export const createTray = (trayWindow, icon) => {
+export const createTray = (trayWindow, assetsDir) => {
+  const icon = nativeImage.createFromPath(path.join(assetsDir, 'Raccoon@4x.png'));
+  icon.setTemplateImage(true);
   const tray = new Tray(icon);
 
   // toggle the tray window when clicking the tray icon.
-  tray.on('click', (event) => {
+  tray.on('click', event => {
     trayWindow.webContents.send('openTray');
 
     toggleWindow(trayWindow, () => {
