@@ -6,6 +6,9 @@ build
 dist
 .env
 *.dmg
+gatsby-config.js
+raccoon-site/.cache
+raccoon-site/public
 
 # testing
 /coverage
