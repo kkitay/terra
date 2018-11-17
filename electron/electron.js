@@ -2,13 +2,10 @@
 const path = require('path');
 const url = require('url');
 const { ipcMain, app } = require('electron');
-
-// my modules
 const { createTray, createTrayWindow } = require('./features/tray');
-const { createSettings } = require('./features/createSettings');
-const breaks = require('./features/breaks');
 const { assetsDir } = require('./features/common');
 
+// set our react base url
 const baseUrl =
   process.env.ELECTRON_START_URL ||
   url.format({
@@ -22,12 +19,7 @@ let tray = null;
 let trayWindow = null;
 
 // these are our various features we gotta start/stop
-const featureFunctions = {
-  breaks: {
-    start: () => breaks.start(baseUrl, tray),
-    stop: () => breaks.stop()
-  }
-};
+const featureFunctions = {};
 
 // if a user turns on the setting in the renderer, flip it on here
 ipcMain.on('toggle-feature', (event, feature, onOffBool) => {
@@ -52,12 +44,20 @@ app.on('ready', () => {
   trayWindow = createTrayWindow(baseUrl);
   tray = createTray(trayWindow, assetsDir);
 
-  // start up settings
-  // this returns all the settings
+  // initialize settings and return all of them
+  const { createSettings } = require('./features/createSettings');
   const settings = createSettings();
 
+  // add features which need access to settings
+  // this must be done after app is ready
+  const breaks = require('./features/breaks');
+  featureFunctions.breaks = {
+    start: () => breaks.start(baseUrl, tray),
+    stop: () => breaks.stop()
+  };
+
   // turn on settings that are enabled
-  for ([settingName, settingValues] of Object.entries(settings)) {
+  for (const [settingName, settingValues] of Object.entries(settings)) {
     if (settingValues.on && featureFunctions[settingName]) {
       featureFunctions[settingName].start();
     }

@@ -2,12 +2,12 @@
   "name": "raccoon",
   "productName": "Raccoon",
   "description": "Raccoon",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "author": {
     "name": "Kat Kitay",
     "email": "katkitay@gmail.com",
-    "url": "https://kitay.co"
+    "url": "https://raccoon.technology"
   },
   "main": "electron/electron.js",
   "homepage": "./",
@@ -60,7 +60,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "electron": "^3.0.6",
+    "electron": "^3.0.9",
     "electron-builder": "^20.31.2",
     "electron-packager": "^12.2.0",
     "foreman": "^3.0.1"
