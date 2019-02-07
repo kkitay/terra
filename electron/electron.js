@@ -2,8 +2,11 @@
 const path = require('path');
 const url = require('url');
 const { ipcMain, app } = require('electron');
+const { autoUpdater } = require('electron-updater')
 const { createTray, createTrayWindow } = require('./features/tray');
 const { assetsDir } = require('./features/common');
+
+autoUpdater.checkForUpdatesAndNotify();
 
 // set our react base url
 const baseUrl =
@@ -36,7 +39,7 @@ ipcMain.on('toggle-feature', (event, feature, onOffBool) => {
 });
 
 // this is not a dock app
-app.dock.hide();
+// app.dock.hide();
 
 // start the app up
 app.on('ready', () => {

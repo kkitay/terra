@@ -2,17 +2,20 @@
   "name": "raccoon",
   "productName": "Raccoon",
   "description": "Raccoon",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "author": {
     "name": "Kat Kitay",
     "email": "katkitay@gmail.com",
     "url": "https://raccoon.technology"
   },
+  "repository": "github:kkitay/raccoon",
   "main": "electron/electron.js",
   "homepage": "./",
   "build": {
-    "appId": "com.kkitay.raccoon",
+    "appId": "com.electron.raccoon",
+    "productName": "Raccoon",
+    "copyright": "Copyright Until I'm Dead ${author}",
     "files": [
       "build/**/*",
       "node_modules/**/*"
@@ -21,8 +24,8 @@
       "buildResources": "assets"
     },
     "mac": {
-      "target": "dmg",
-      "icon": "build/assets/raccoon.png"
+      "icon": "build/assets/raccoon.png",
+      "publish": "github"
     }
   },
   "dependencies": {
@@ -31,24 +34,27 @@
     "electromon": "^1.0.10",
     "electron-is-dev": "^1.0.1",
     "electron-settings": "^3.2.0",
+    "electron-updater": "^4.0.6",
+    "fsevents": "^1.2.7",
     "lodash": "^4.17.11",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.5",
-    "react-typist": "^2.0.4"
+    "react-scripts": "^2.1.3",
+    "react-typist": "^2.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "electromon .",
+    "electron": "electromon ./electron/electron",
     "dev": "nf start",
-    "preelectron-pack": "npm run build && copyfiles -u 1 electron/** electron/**/** build",
-    "electron-pack": "electron-builder",
-    "postelectron-pack": "electron-builder install-app-deps"
+    "prepackitup": "npm run build && copyfiles -u 1 electron/** electron/**/** build",
+    "packitup": "electron-builder",
+    "postpackitup": "electron-builder install-app-deps",
+    "release": "npm run packitup"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -60,9 +66,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "electron": "^3.0.9",
-    "electron-builder": "^20.31.2",
-    "electron-packager": "^12.2.0",
+    "electron": "^4.0.4",
+    "electron-builder": "^20.38.5",
     "foreman": "^3.0.1"
   }
 }

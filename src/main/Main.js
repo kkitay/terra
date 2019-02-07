@@ -37,7 +37,7 @@ export default class Main extends React.Component {
                     src={raccoonPath}
                     alt="Cute Raccoon"
                   />
-                  I'm the Digital Wellbeing Raccoon. Here's what I do:
+                  I'm Raccoon. Here's what I can do:
                 </div>
               </Typewriter>
             )}
