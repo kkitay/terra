@@ -13,7 +13,7 @@ const tryConnection = () => client.connect({port: port}, () => {
             startedElectron = true;
             const spawn = require('child_process').spawn;
             try {
-                const child = spawn('npm', ['run', 'electron']);
+                const child = spawn('yarn', ['electron']);
                 child.stdout.on('data', (data) => {
                     console.log(data.toString());
                 });

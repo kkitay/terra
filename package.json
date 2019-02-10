@@ -28,14 +28,14 @@
       "publish": "github"
     }
   },
+  "engines": {
+    "node": "^10.11"
+  },
   "dependencies": {
     "classnames": "^2.2.6",
-    "copyfiles": "^2.1.0",
-    "electromon": "^1.0.10",
     "electron-is-dev": "^1.0.1",
     "electron-settings": "^3.2.0",
     "electron-updater": "^4.0.6",
-    "fsevents": "^1.2.7",
     "lodash": "^4.17.11",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
@@ -51,10 +51,10 @@
     "eject": "react-scripts eject",
     "electron": "electromon ./electron/electron",
     "dev": "nf start",
-    "prepackitup": "npm run build && copyfiles -u 1 electron/** electron/**/** build",
-    "packitup": "electron-builder",
+    "prepackitup": "yarn build && copyfiles -u 1 electron/** electron/**/** build",
+    "packitup": "electron-builder --publish onTagOrDraft",
     "postpackitup": "electron-builder install-app-deps",
-    "release": "npm run packitup"
+    "release": "yarn packitup"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -68,6 +68,8 @@
   "devDependencies": {
     "electron": "^4.0.4",
     "electron-builder": "^20.38.5",
-    "foreman": "^3.0.1"
+    "foreman": "^3.0.1",
+    "copyfiles": "^2.1.0",
+    "electromon": "^1.0.10"
   }
 }
