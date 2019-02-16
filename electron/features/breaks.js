@@ -2,8 +2,13 @@ const { ipcMain, globalShortcut } = require('electron');
 const settings = require('electron-settings');
 const { createTrayWindow, showTray } = require('./tray');
 const { createWhiteWindow } = require('./whiteWindow.js');
+const { getDoNotDisturb } = require('electron-notification-state');
 
-const BREAK_INTERVAL = settings.get('breaks.intervalMins') * 1000 * 60;
+// const BREAK_INTERVAL = settings.get('breaks.intervalMins') * 1000 * 60;
+
+alert(getDoNotDisturb()); 
+
+const BREAK_INTERVAL = 3000;
 const BREAK_TIME = 1000 * 30; // 30 seconds
 
 let tray = null;

@@ -3,26 +3,26 @@ import Settings from './Settings';
 import Tray from '../common/Tray';
 import Typewriter from '../common/Typewriter';
 import './Main.css';
+import { assetsPath } from '../lib/helpers';
 
-// check if this is a dev environment
-const isEnvSet = 'ELECTRON_IS_DEV' in process.env;
-const getFromEnv = parseInt(process.env.ELECTRON_IS_DEV, 10) === 1;
-const isDev = isEnvSet ? getFromEnv : false;
-
-const raccoonPath = isDev ? '/assets/raccoon.png' : './assets/raccoon.png';
 const { shell, remote } = window.require('electron');
 
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      doneTyping: []
+      doneTyping: [],
+      raccoon_laugh: false,
     };
   }
 
   doneTyping = name => {
     this.setState({ doneTyping: [...this.state.doneTyping, name] });
   };
+
+  toggleRaccoonLaugh(laughingState) {
+    this.setState({ raccoon_laugh: laughingState });
+  }
 
   render() {
     return (
@@ -31,13 +31,21 @@ export default class Main extends React.Component {
           <div className="Main">
             {tray.startTyping && (
               <Typewriter name="Intro" doneTyping={this.doneTyping}>
-                <div>
+                <div
+                  onMouseEnter={() => this.toggleRaccoonLaugh(true)}
+                  onMouseLeave={() => this.toggleRaccoonLaugh(false)}
+                >
                   <img
                     className="raccoon"
-                    src={raccoonPath}
+                    src={
+                      assetsPath +
+                      (this.state.raccoon_laugh === true
+                        ? '/raccoon_laugh.png'
+                        : '/raccoon.png')
+                    }
                     alt="Cute Raccoon"
                   />
-                  I'm Raccoon. Here's what I can do:
+                  I'm Raccoon! Here's how I can help you:
                 </div>
               </Typewriter>
             )}
