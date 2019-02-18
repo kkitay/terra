@@ -4,7 +4,7 @@ const url = require('url');
 const { ipcMain, app } = require('electron');
 const { autoUpdater } = require('electron-updater')
 const { createTray, createTrayWindow } = require('./features/tray');
-const { assetsDir } = require('./features/common');
+const { assetsDir, isDev } = require('./features/common');
 
 autoUpdater.checkForUpdatesAndNotify();
 
@@ -39,7 +39,9 @@ ipcMain.on('toggle-feature', (event, feature, onOffBool) => {
 });
 
 // this is not a dock app
-// app.dock.hide();
+if (!isDev) {
+  app.dock.hide();
+}
 
 // start the app up
 app.on('ready', () => {
