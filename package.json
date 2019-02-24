@@ -52,10 +52,8 @@
     "eject": "react-scripts eject",
     "electron": "electromon ./electron/electron",
     "dev": "nf start",
-    "prepackitup": "yarn build && copyfiles -u 1 electron/** electron/**/** build",
-    "packitup": "electron-builder --publish always",
-    "postpackitup": "electron-builder install-app-deps",
-    "release": "yarn packitup"
+    "prerelease": "yarn build && copyfiles -u 1 electron/** electron/**/** build",
+    "release": "electron-builder --publish always"
   },
   "eslintConfig": {
     "extends": "react-app"
