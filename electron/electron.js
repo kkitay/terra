@@ -2,11 +2,18 @@
 const path = require('path');
 const url = require('url');
 const { ipcMain, app } = require('electron');
+
+// check for new releases to update to
 const { autoUpdater } = require('electron-updater')
+autoUpdater.checkForUpdatesAndNotify();
+
+// start on login handler
+const AutoLaunch = require('auto-launch');
+const autoLauncher = new AutoLaunch({ name: 'Raccoon' });
+
+// require our common tray and config features
 const { createTray, createTrayWindow } = require('./features/tray');
 const { assetsDir, isDev } = require('./features/common');
-
-autoUpdater.checkForUpdatesAndNotify();
 
 // set our react base url
 const baseUrl =
@@ -60,6 +67,11 @@ app.on('ready', () => {
     start: () => breaks.start(baseUrl, tray),
     stop: () => breaks.stop()
   };
+
+  featureFunctions.autoStart = {
+    start: () => autoLauncher.enable(),
+    stop: () => autoLauncher.disable(),
+  }
 
   // turn on settings that are enabled
   for (const [settingName, settingValues] of Object.entries(settings)) {

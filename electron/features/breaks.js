@@ -4,7 +4,7 @@ const { createTrayWindow, showTray } = require('./tray');
 const { createWhiteWindow } = require('./whiteWindow.js');
 const { isDev, doNotDisturb } = require('./common');
 
-const BREAK_INTERVAL = isDev ? 3000 : settings.get('breaks.intervalMins') * 1000 * 60;
+const BREAK_INTERVAL = isDev ? 60000 : settings.get('breaks.intervalMins') * 1000 * 60;
 
 const BREAK_TIME = 1000 * 30; // 30 seconds
 

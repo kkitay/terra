@@ -3,8 +3,11 @@ const isDev = require('electron-is-dev');
 
 const defaultSettings = {
   breaks: {
-    on: false,
+    on: true,
     intervalMins: 20
+  },
+  autoStart: {
+    on: true,
   }
 };
 
@@ -13,7 +16,7 @@ const createSettings = () => {
     settings.setAll({});
   }
 
-  // add settings that aren't enabled yet
+  // add new settings
   Object.entries(defaultSettings).forEach(([groupName, groupSettings]) => {
     // loop through each property
     Object.entries(groupSettings).forEach(([settingName, defaultValue]) => {

@@ -6,7 +6,8 @@ const settings = remote.require('electron-settings');
 
 const descriptions = {
   breaks: 'Help you take breaks every 20 minutes',
-  meetings: 'Send you off to your meetings'
+  meetings: 'Send you off to your meetings',
+  autoStart: 'Auto start on login',
 };
 
 const toggleSetting = name => {
