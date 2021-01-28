@@ -67,7 +67,7 @@
   "devDependencies": {
     "copyfiles": "^2.1.0",
     "electromon": "^1.0.10",
-    "electron": "^4.0.4",
+    "electron": "^9.4.0",
     "electron-builder": "^20.38.5",
     "foreman": "^3.0.1"
   }
